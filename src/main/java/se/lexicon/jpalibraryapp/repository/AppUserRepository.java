@@ -20,4 +20,5 @@ public interface AppUserRepository extends JpaRepository<AppUser, Integer> {
 
     @Query("SELECT u FROM AppUser u WHERE LOWER(u.userDetails.email) = LOWER(:email)")
     Optional<AppUser> findByEmailIgnoreCase(@Param("email") String email);
+
 }
