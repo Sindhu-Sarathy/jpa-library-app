@@ -7,6 +7,7 @@ import java.util.List;
 
 public interface BookRepository extends JpaRepository<Book, Integer> {
 
+
     List<Book> findByIsbnIgnoreCase(String isbn);
 
     List<Book> findByTitleContains(String title);
