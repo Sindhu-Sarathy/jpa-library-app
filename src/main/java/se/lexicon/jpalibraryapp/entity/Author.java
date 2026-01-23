@@ -1,6 +1,7 @@
 package se.lexicon.jpalibraryapp.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +28,23 @@ public class Author {
 
     @Setter
     @ManyToMany
-    @Column(nullable = false)
     private Set<Book> writtenBooks;
+
+    public Author(String firstName, String lastName, Set<Book> writtenBooks) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.writtenBooks = writtenBooks;
+    }
+
+    public void addBook(Book book){
+        if(writtenBooks.add(book)){
+            book.getAuthors().add(this);
+        }
+    }
+
+    public void removeBook(Book book){
+        if(writtenBooks.remove(book)){
+            book.getAuthors().remove(this);
+        }
+    }
 }
