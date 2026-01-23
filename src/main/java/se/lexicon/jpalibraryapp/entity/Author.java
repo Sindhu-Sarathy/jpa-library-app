@@ -1,15 +1,13 @@
 package se.lexicon.jpalibraryapp.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.Set;
 
 @Getter
 @NoArgsConstructor
+@ToString
 @Entity
 
 public class Author {
@@ -47,4 +45,6 @@ public class Author {
             book.getAuthors().remove(this);
         }
     }
+
+
 }

@@ -1,10 +1,12 @@
 package se.lexicon.jpalibraryapp;
 
+import com.sun.jdi.BooleanValue;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 import se.lexicon.jpalibraryapp.entity.AppUser;
+import se.lexicon.jpalibraryapp.entity.Book;
 import se.lexicon.jpalibraryapp.entity.Details;
 import se.lexicon.jpalibraryapp.repository.AppUserRepository;
 import se.lexicon.jpalibraryapp.repository.BookLoanRepository;
@@ -24,9 +26,10 @@ public class AppCommandLineRunner implements CommandLineRunner {
     BookLoanRepository bookLoanRepository;
 
     @Autowired
-    public AppCommandLineRunner(AppUserRepository appUserRepository, DetailsRepository detailsRepository) {
+    public AppCommandLineRunner(AppUserRepository appUserRepository, DetailsRepository detailsRepository,BookRepository bookRepository) {
         this.appUserRepository = appUserRepository;
         this.detailsRepository = detailsRepository;
+        this.bookRepository=bookRepository;
     }
 
     @Override
@@ -63,6 +66,26 @@ public class AppCommandLineRunner implements CommandLineRunner {
 
         List<Details> detailsList1 =detailsRepository.findByNameIgnoreCase("TEST");
         System.out.println(detailsList1);
+
+        /// Book Repository
+
+        bookRepository.save(new Book("123456789","5AM Club",15));
+        System.out.println("Book has been saved successfully!");
+
+        List<Book> bookByIsbn= bookRepository.findByIsbnIgnoreCase("123456789");
+        System.out.println(bookByIsbn);
+
+        List<Book> bookByTitle= bookRepository.findByTitleContains("5AM Club");
+        System.out.println(bookByTitle);
+
+        List<Book> maxDays=bookRepository.findByMaxLoanDaysIsLessThan(20);
+        System.out.println(maxDays);
+
+        /// Author Repository
+
+
+
+        /// BookLoan Repository
 
     }
 }
