@@ -1,13 +1,14 @@
 package se.lexicon.jpalibraryapp.repository;
 
+import jakarta.transaction.Transactional;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import se.lexicon.jpalibraryapp.entity.BookLoan;
 
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Optional;
 
 public interface BookLoanRepository extends JpaRepository<BookLoan, Integer> {
 
@@ -31,9 +32,10 @@ public interface BookLoanRepository extends JpaRepository<BookLoan, Integer> {
     List<BookLoan> findByLoanDateBetween(LocalDate loanDateAfter, LocalDate loanDateBefore);
 
 
+    @Transactional
     @Modifying
     @Query("UPDATE BookLoan bl SET bl.returned=true WHERE bl.id=:id")
-    int  returnBook(int id);
+    int returnBook(@Param("id") int id);
 
 
 

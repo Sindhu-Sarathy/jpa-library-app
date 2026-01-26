@@ -14,14 +14,13 @@ public interface AuthorRepository extends JpaRepository<Author, Integer> {
 
     List<Author> findByLastName(String lastName);
 
+    List<Author> findByFirstNameOrLastNameContainsIgnoreCase(String firstName, String lastName);
 
-     List<Author> findByFirstNameOrLastNameContainsIgnoreCase(String firstName, String lastName);
+    List<Author> findByWrittenBooks_Id(int writtenBooksId);
 
-     List<Author> findByWrittenBooks_Id(int writtenBooksId);
+    @Modifying
+    @Query("UPDATE Author A SET A.firstName=?1,A.lastName=?2 WHERE A.id=?3")
+    int updateName(String firstName,String lastName,int id);
 
-     @Modifying
-     @Query("UPDATE Author A SET A.firstName=?1,A.lastName=?2 WHERE A.id=?3")
-     int updateName(String firstName,String lastName,int id);
-
-     void deleteById(int id);
+    void deleteById(int id);
 }

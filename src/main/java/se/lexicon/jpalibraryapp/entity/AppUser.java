@@ -55,7 +55,7 @@ public class AppUser {
 
     public boolean removeBookLoan(BookLoan bookLoan){
         if(bookLoans.remove(bookLoan)){
-            bookLoan.setBorrower(null);
+            bookLoan.setReturned(true);
             bookLoan.getBook().setAvailable(true);
             return true;
         }
